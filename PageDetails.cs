@@ -563,6 +563,7 @@ namespace WebAutomation
                         string verificationValue = "";
 
                         string controlType = UIHelper.GetGridColumnValue(gdvSelectedControls, i, "ControlType");
+                        string fieldName = UIHelper.GetGridColumnValue(gdvSelectedControls, i, "UserFriendlyName");
                         string identifier = UIHelper.GetGridColumnValue(gdvSelectedControls, i, "Identifier");
                         string controlName = UIHelper.GetGridColumnValue(gdvSelectedControls, i, "COntrolName");
                         string controlID = UIHelper.GetGridColumnValue(gdvSelectedControls, i, "ControlID");
@@ -610,6 +611,7 @@ namespace WebAutomation
 
                         parameters.Add(new SqlParameter("@WebPageID", txtWebPageId.Text));
                         parameters.Add(new SqlParameter("@PageControlID", pageControlId));
+                        parameters.Add(new SqlParameter("@FieldName", fieldName));
                         parameters.Add(new SqlParameter("@pagedataid", pagedataID));
                         parameters.Add(new SqlParameter("@ControlType", controlType));
                         parameters.Add(new SqlParameter("@COntrolName", controlName));

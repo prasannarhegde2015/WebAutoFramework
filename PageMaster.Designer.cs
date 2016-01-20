@@ -202,9 +202,9 @@
             // btnGet
             // 
             this.btnGet.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGet.Location = new System.Drawing.Point(21, 222);
+            this.btnGet.Location = new System.Drawing.Point(21, 233);
             this.btnGet.Name = "btnGet";
-            this.btnGet.Size = new System.Drawing.Size(75, 46);
+            this.btnGet.Size = new System.Drawing.Size(85, 36);
             this.btnGet.TabIndex = 38;
             this.btnGet.Text = "Get";
             this.btnGet.UseVisualStyleBackColor = true;
@@ -213,9 +213,10 @@
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(108, 222);
+            this.btnSave.ImageAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnSave.Location = new System.Drawing.Point(112, 233);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 46);
+            this.btnSave.Size = new System.Drawing.Size(83, 36);
             this.btnSave.TabIndex = 39;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -252,9 +253,9 @@
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(195, 222);
+            this.btnDelete.Location = new System.Drawing.Point(201, 231);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 46);
+            this.btnDelete.Size = new System.Drawing.Size(81, 38);
             this.btnDelete.TabIndex = 61;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;

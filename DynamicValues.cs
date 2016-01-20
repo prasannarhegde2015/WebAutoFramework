@@ -42,7 +42,7 @@ namespace WebAutomation
                 List<SqlParameter> paramters = new List<SqlParameter>(0);
                 paramters.Add(new SqlParameter("@DynamicName", txtName.Text));
                 paramters.Add(new SqlParameter("@DynamicType", dnType.Text));
-                paramters.Add(new SqlParameter("@Length", int.Parse(nupLength.Text)));
+                paramters.Add(new SqlParameter("@L ength", int.Parse(nupLength.Text)));
                 paramters.Add(new SqlParameter("@Format", dnFormat.Text));
 
                 DataAccessLayer.InsertData("[DynamicParametersAdd]", paramters);

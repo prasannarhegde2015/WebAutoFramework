@@ -108,7 +108,12 @@ namespace WebAutomation
                 txtControlValue.Focus();
                 return;
             }
-
+            if (txtFieldName.Text.Trim().Length == 0)
+            {
+                UIHelper.StopMessage("Please enter the value for FieldName");
+                txtFieldName.Focus();
+                return;
+            }
             if (dnSearchBy.Text.ToLower() == "id")
             {
                 currentCell.OwningRow.Cells["controlId"].Value = txtControlValue.Text;
@@ -152,6 +157,7 @@ namespace WebAutomation
             currentCell.OwningRow.Cells["IsAction"].Value = "N";
             currentCell.OwningRow.Cells["Frameposition"].Value = frame;
             currentCell.OwningRow.Cells["Data"].Value = txtData.Text;
+            currentCell.OwningRow.Cells["UserFriendlyName"].Value = txtFieldName.Text;
             this.Close();
 
         }

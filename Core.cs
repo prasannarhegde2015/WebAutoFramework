@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WatiN.Core;
+using System.IO;
 using System.Text.RegularExpressions;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Internal;
 namespace WebAutomation
 {
     public static class Core
     {
-
+        public static WebDriverWait wait;
 
         public static TextField GetTextField(IE ie, int frame, string controName, string controlID, int index)
         {
@@ -580,6 +583,7 @@ namespace WebAutomation
             if (driver == null)
             {
                 driver = new ChromeDriver();
+                wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120.00));
                 if (url.Length > 0)
                 {
                     driver.Manage().Window.Maximize();
@@ -774,6 +778,7 @@ namespace WebAutomation
                     if (controlname.Length > 0)
                     {
                         elem = driver.FindElement(By.Name(controlname));
+                        elem = wait.Until(ExpectedConditions.ElementIsVisible(By.Name(controlname)));
 
                                           }
                     else if (controlid.Length > 0)
@@ -827,8 +832,19 @@ namespace WebAutomation
                     {
 
                         BusinessLayer.LogTofile("", "", "", "", "", "Finding span from collection");
-                        System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> elemcol = driver.FindElements(By.TagName("span"));
-
+                     //  System.Collections.ObjectModel.ReadOnlyCollection<IWebElement> elemcol = driver.FindElements(By.TagName("span"));
+                       IList<IWebElement> elemcol = driver.FindElements(By.TagName("span"));
+                        int timeout = 60 ;
+                        while (elemcol == null && timeout > 0)
+                        {
+                            BusinessLayer.LogTofile("", "", "", "", "", "Elememt Collection Null Condtion "+(elemcol == null));
+                            System.Threading.Thread.Sleep(1000);
+                            timeout--;
+                            if (elemcol != null)
+                            {
+                                break;
+                            }
+                        }
                         foreach (IWebElement inelem in elemcol)
                         {
                             if (inelem.Text.Contains(controlname))
@@ -1118,12 +1134,13 @@ namespace WebAutomation
             return elem;
         }
 
-        public void TakeScreenshot(IWebDriver _driver, string saveLocation)
+        public static string  TakeScreenshot(IWebDriver _driver, string saveLocation)
         {
-            var location =  saveLocation + ".png";
+            var location = Path.Combine(saveLocation, DateTime.Now.ToString("dd_MMM_yyyy_hh_mm_ss") + ".png");
             var ssdriver = _driver as ITakesScreenshot;
             var screenshot = ssdriver.GetScreenshot();
             screenshot.SaveAsFile(location, System.Drawing.Imaging.ImageFormat.Png);
+            return "file:\\"+location;
         }
 
     }

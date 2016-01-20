@@ -32,6 +32,8 @@
             this.radioControls = new System.Windows.Forms.RadioButton();
             this.radioActions = new System.Windows.Forms.RadioButton();
             this.grpBoxControls = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtData = new System.Windows.Forms.TextBox();
             this.dnVisible = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
             this.txtIgnoreSuffix = new System.Windows.Forms.TextBox();
@@ -69,8 +71,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtButtonName = new System.Windows.Forms.TextBox();
             this.radioJavaScript = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtData = new System.Windows.Forms.TextBox();
+            this.txtFieldName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.grpBoxControls.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageControls.SuspendLayout();
@@ -124,6 +126,8 @@
             // 
             // grpBoxControls
             // 
+            this.grpBoxControls.Controls.Add(this.label13);
+            this.grpBoxControls.Controls.Add(this.txtFieldName);
             this.grpBoxControls.Controls.Add(this.label1);
             this.grpBoxControls.Controls.Add(this.txtData);
             this.grpBoxControls.Controls.Add(this.dnVisible);
@@ -142,6 +146,23 @@
             this.grpBoxControls.Size = new System.Drawing.Size(513, 311);
             this.grpBoxControls.TabIndex = 7;
             this.grpBoxControls.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 98);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Data";
+            // 
+            // txtData
+            // 
+            this.txtData.Location = new System.Drawing.Point(80, 91);
+            this.txtData.MaxLength = 100;
+            this.txtData.Name = "txtData";
+            this.txtData.Size = new System.Drawing.Size(284, 20);
+            this.txtData.TabIndex = 9;
             // 
             // dnVisible
             // 
@@ -518,22 +539,21 @@
             this.radioJavaScript.UseVisualStyleBackColor = true;
             this.radioJavaScript.Click += new System.EventHandler(this.radioJavaScript_Click);
             // 
-            // label1
+            // txtFieldName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(7, 98);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(30, 13);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Data";
+            this.txtFieldName.Location = new System.Drawing.Point(367, 24);
+            this.txtFieldName.Name = "txtFieldName";
+            this.txtFieldName.Size = new System.Drawing.Size(100, 20);
+            this.txtFieldName.TabIndex = 18;
             // 
-            // txtData
+            // label13
             // 
-            this.txtData.Location = new System.Drawing.Point(80, 91);
-            this.txtData.MaxLength = 100;
-            this.txtData.Name = "txtData";
-            this.txtData.Size = new System.Drawing.Size(284, 20);
-            this.txtData.TabIndex = 9;
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(279, 30);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(57, 13);
+            this.label13.TabIndex = 19;
+            this.label13.Text = "FieldName";
             // 
             // SelectControlType
             // 
@@ -617,5 +637,7 @@
         private System.Windows.Forms.ComboBox dnVisible;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtData;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.TextBox txtFieldName;
     }
 }

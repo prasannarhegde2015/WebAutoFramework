@@ -44,28 +44,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.gdvSelectedControls = new System.Windows.Forms.DataGridView();
-            this.ControlType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ControlText = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ControlValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IgnoreSuffix = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IgnorePrefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Visible = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FramePosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OriginalControlID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OriginalControlname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.IsAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Identifier = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DeleteRow = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PageDataID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PageControlID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ControlName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ControlID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DataName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OrdinalPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OriginalData = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.originalVerificationData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.gdvTestCaseList = new System.Windows.Forms.DataGridView();
             this.Action = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -90,6 +68,29 @@
             this.chkIdentifyControls = new System.Windows.Forms.CheckBox();
             this.btnRename = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.UserFriendlyName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ControlType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ControlText = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ControlValue = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IgnoreSuffix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IgnorePrefix = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Visible = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FramePosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OriginalControlID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OriginalControlname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IsAction = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Identifier = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DeleteRow = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PageDataID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PageControlID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ControlName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ControlID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.DataName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrdinalPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Index = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OriginalData = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.originalVerificationData = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.upDownFlash)).BeginInit();
             this.mnuGridOperations.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -247,6 +248,7 @@
             this.gdvSelectedControls.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.gdvSelectedControls.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gdvSelectedControls.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.UserFriendlyName,
             this.ControlType,
             this.ControlText,
             this.ControlValue,
@@ -270,7 +272,7 @@
             this.OriginalData,
             this.originalVerificationData});
             this.gdvSelectedControls.GridColor = System.Drawing.Color.Maroon;
-            this.gdvSelectedControls.Location = new System.Drawing.Point(3, 3);
+            this.gdvSelectedControls.Location = new System.Drawing.Point(-4, 6);
             this.gdvSelectedControls.Name = "gdvSelectedControls";
             this.gdvSelectedControls.RowHeadersVisible = false;
             this.gdvSelectedControls.Size = new System.Drawing.Size(1038, 462);
@@ -282,154 +284,6 @@
             this.gdvSelectedControls.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.gdvSelectedControls_RowEnter);
             this.gdvSelectedControls.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gdvSelectedControls_KeyDown);
             this.gdvSelectedControls.MouseClick += new System.Windows.Forms.MouseEventHandler(this.gdvSelectedControls_MouseClick);
-            // 
-            // ControlType
-            // 
-            this.ControlType.HeaderText = "ControlType";
-            this.ControlType.Name = "ControlType";
-            this.ControlType.Width = 89;
-            // 
-            // ControlText
-            // 
-            this.ControlText.HeaderText = "ControlText";
-            this.ControlText.Name = "ControlText";
-            this.ControlText.Visible = false;
-            this.ControlText.Width = 86;
-            // 
-            // ControlValue
-            // 
-            this.ControlValue.HeaderText = "ControlValue";
-            this.ControlValue.Name = "ControlValue";
-            this.ControlValue.Visible = false;
-            this.ControlValue.Width = 92;
-            // 
-            // IgnoreSuffix
-            // 
-            this.IgnoreSuffix.HeaderText = "IgnoreSuffix";
-            this.IgnoreSuffix.Name = "IgnoreSuffix";
-            this.IgnoreSuffix.ReadOnly = true;
-            this.IgnoreSuffix.Visible = false;
-            this.IgnoreSuffix.Width = 88;
-            // 
-            // IgnorePrefix
-            // 
-            this.IgnorePrefix.HeaderText = "IgnorePrefix";
-            this.IgnorePrefix.Name = "IgnorePrefix";
-            this.IgnorePrefix.ReadOnly = true;
-            this.IgnorePrefix.Visible = false;
-            this.IgnorePrefix.Width = 88;
-            // 
-            // Visible
-            // 
-            this.Visible.HeaderText = "Visible";
-            this.Visible.Name = "Visible";
-            this.Visible.Visible = false;
-            this.Visible.Width = 62;
-            // 
-            // FramePosition
-            // 
-            this.FramePosition.HeaderText = "Frame";
-            this.FramePosition.Name = "FramePosition";
-            this.FramePosition.Width = 61;
-            // 
-            // OriginalControlID
-            // 
-            this.OriginalControlID.HeaderText = "OriginalControlID";
-            this.OriginalControlID.Name = "OriginalControlID";
-            this.OriginalControlID.Width = 111;
-            // 
-            // OriginalControlname
-            // 
-            this.OriginalControlname.HeaderText = "OriginalControlname";
-            this.OriginalControlname.Name = "OriginalControlname";
-            this.OriginalControlname.Width = 126;
-            // 
-            // IsAction
-            // 
-            this.IsAction.HeaderText = "IsAction";
-            this.IsAction.Name = "IsAction";
-            this.IsAction.Visible = false;
-            this.IsAction.Width = 70;
-            // 
-            // Identifier
-            // 
-            this.Identifier.HeaderText = "Identifier";
-            this.Identifier.Name = "Identifier";
-            this.Identifier.Width = 72;
-            // 
-            // DeleteRow
-            // 
-            this.DeleteRow.HeaderText = "DeleteRow";
-            this.DeleteRow.Name = "DeleteRow";
-            this.DeleteRow.Visible = false;
-            this.DeleteRow.Width = 85;
-            // 
-            // PageDataID
-            // 
-            this.PageDataID.HeaderText = "PageDataID";
-            this.PageDataID.Name = "PageDataID";
-            this.PageDataID.Visible = false;
-            this.PageDataID.Width = 91;
-            // 
-            // PageControlID
-            // 
-            this.PageControlID.HeaderText = "PageControlID";
-            this.PageControlID.Name = "PageControlID";
-            this.PageControlID.Visible = false;
-            this.PageControlID.Width = 101;
-            // 
-            // ControlName
-            // 
-            this.ControlName.HeaderText = "ControlName";
-            this.ControlName.Name = "ControlName";
-            this.ControlName.Visible = false;
-            this.ControlName.Width = 93;
-            // 
-            // ControlID
-            // 
-            this.ControlID.HeaderText = "ControlID";
-            this.ControlID.Name = "ControlID";
-            this.ControlID.Visible = false;
-            this.ControlID.Width = 76;
-            // 
-            // DataName
-            // 
-            this.DataName.HeaderText = "DataName";
-            this.DataName.Name = "DataName";
-            this.DataName.Width = 83;
-            // 
-            // OrdinalPosition
-            // 
-            this.OrdinalPosition.HeaderText = "OrdinalPosition";
-            this.OrdinalPosition.Name = "OrdinalPosition";
-            this.OrdinalPosition.Visible = false;
-            this.OrdinalPosition.Width = 102;
-            // 
-            // Data
-            // 
-            this.Data.HeaderText = "Data";
-            this.Data.Name = "Data";
-            this.Data.Width = 55;
-            // 
-            // Index
-            // 
-            this.Index.HeaderText = "Index";
-            this.Index.Name = "Index";
-            this.Index.Width = 58;
-            // 
-            // OriginalData
-            // 
-            this.OriginalData.HeaderText = "OriginalData";
-            this.OriginalData.Name = "OriginalData";
-            this.OriginalData.Visible = false;
-            this.OriginalData.Width = 90;
-            // 
-            // originalVerificationData
-            // 
-            this.originalVerificationData.HeaderText = "OriginalVerificationData";
-            this.originalVerificationData.Name = "originalVerificationData";
-            this.originalVerificationData.Visible = false;
-            this.originalVerificationData.Width = 142;
             // 
             // tabControl1
             // 
@@ -690,6 +544,160 @@
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // UserFriendlyName
+            // 
+            this.UserFriendlyName.HeaderText = "FieldName";
+            this.UserFriendlyName.Name = "UserFriendlyName";
+            this.UserFriendlyName.Width = 82;
+            // 
+            // ControlType
+            // 
+            this.ControlType.HeaderText = "ControlType";
+            this.ControlType.Name = "ControlType";
+            this.ControlType.Width = 89;
+            // 
+            // ControlText
+            // 
+            this.ControlText.HeaderText = "ControlText";
+            this.ControlText.Name = "ControlText";
+            this.ControlText.Visible = false;
+            this.ControlText.Width = 86;
+            // 
+            // ControlValue
+            // 
+            this.ControlValue.HeaderText = "ControlValue";
+            this.ControlValue.Name = "ControlValue";
+            this.ControlValue.Visible = false;
+            this.ControlValue.Width = 92;
+            // 
+            // IgnoreSuffix
+            // 
+            this.IgnoreSuffix.HeaderText = "IgnoreSuffix";
+            this.IgnoreSuffix.Name = "IgnoreSuffix";
+            this.IgnoreSuffix.ReadOnly = true;
+            this.IgnoreSuffix.Visible = false;
+            this.IgnoreSuffix.Width = 88;
+            // 
+            // IgnorePrefix
+            // 
+            this.IgnorePrefix.HeaderText = "IgnorePrefix";
+            this.IgnorePrefix.Name = "IgnorePrefix";
+            this.IgnorePrefix.ReadOnly = true;
+            this.IgnorePrefix.Visible = false;
+            this.IgnorePrefix.Width = 88;
+            // 
+            // Visible
+            // 
+            this.Visible.HeaderText = "Visible";
+            this.Visible.Name = "Visible";
+            this.Visible.Visible = false;
+            this.Visible.Width = 62;
+            // 
+            // FramePosition
+            // 
+            this.FramePosition.HeaderText = "Frame";
+            this.FramePosition.Name = "FramePosition";
+            this.FramePosition.Width = 61;
+            // 
+            // OriginalControlID
+            // 
+            this.OriginalControlID.HeaderText = "OriginalControlID";
+            this.OriginalControlID.Name = "OriginalControlID";
+            this.OriginalControlID.Width = 111;
+            // 
+            // OriginalControlname
+            // 
+            this.OriginalControlname.HeaderText = "OriginalControlname";
+            this.OriginalControlname.Name = "OriginalControlname";
+            this.OriginalControlname.Width = 126;
+            // 
+            // IsAction
+            // 
+            this.IsAction.HeaderText = "IsAction";
+            this.IsAction.Name = "IsAction";
+            this.IsAction.Visible = false;
+            this.IsAction.Width = 70;
+            // 
+            // Identifier
+            // 
+            this.Identifier.HeaderText = "Identifier";
+            this.Identifier.Name = "Identifier";
+            this.Identifier.Width = 72;
+            // 
+            // DeleteRow
+            // 
+            this.DeleteRow.HeaderText = "DeleteRow";
+            this.DeleteRow.Name = "DeleteRow";
+            this.DeleteRow.Visible = false;
+            this.DeleteRow.Width = 85;
+            // 
+            // PageDataID
+            // 
+            this.PageDataID.HeaderText = "PageDataID";
+            this.PageDataID.Name = "PageDataID";
+            this.PageDataID.Visible = false;
+            this.PageDataID.Width = 91;
+            // 
+            // PageControlID
+            // 
+            this.PageControlID.HeaderText = "PageControlID";
+            this.PageControlID.Name = "PageControlID";
+            this.PageControlID.Visible = false;
+            this.PageControlID.Width = 101;
+            // 
+            // ControlName
+            // 
+            this.ControlName.HeaderText = "ControlName";
+            this.ControlName.Name = "ControlName";
+            this.ControlName.Visible = false;
+            this.ControlName.Width = 93;
+            // 
+            // ControlID
+            // 
+            this.ControlID.HeaderText = "ControlID";
+            this.ControlID.Name = "ControlID";
+            this.ControlID.Visible = false;
+            this.ControlID.Width = 76;
+            // 
+            // DataName
+            // 
+            this.DataName.HeaderText = "DataName";
+            this.DataName.Name = "DataName";
+            this.DataName.Width = 83;
+            // 
+            // OrdinalPosition
+            // 
+            this.OrdinalPosition.HeaderText = "OrdinalPosition";
+            this.OrdinalPosition.Name = "OrdinalPosition";
+            this.OrdinalPosition.Visible = false;
+            this.OrdinalPosition.Width = 102;
+            // 
+            // Data
+            // 
+            this.Data.HeaderText = "Data";
+            this.Data.Name = "Data";
+            this.Data.Width = 55;
+            // 
+            // Index
+            // 
+            this.Index.HeaderText = "Index";
+            this.Index.Name = "Index";
+            this.Index.Width = 58;
+            // 
+            // OriginalData
+            // 
+            this.OriginalData.HeaderText = "OriginalData";
+            this.OriginalData.Name = "OriginalData";
+            this.OriginalData.Visible = false;
+            this.OriginalData.Width = 90;
+            // 
+            // originalVerificationData
+            // 
+            this.originalVerificationData.HeaderText = "OriginalVerificationData";
+            this.originalVerificationData.Name = "originalVerificationData";
+            this.originalVerificationData.Visible = false;
+            this.originalVerificationData.Width = 142;
+            // 
             // PageDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -775,6 +783,7 @@
         private System.Windows.Forms.CheckBox chkIdentifyControls;
         private System.Windows.Forms.Button btnRename;
         private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserFriendlyName;
         private System.Windows.Forms.DataGridViewTextBoxColumn ControlType;
         private System.Windows.Forms.DataGridViewTextBoxColumn ControlText;
         private System.Windows.Forms.DataGridViewTextBoxColumn ControlValue;

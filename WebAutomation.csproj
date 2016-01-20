@@ -203,6 +203,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="RenameTestCase.resx">
       <DependentUpon>RenameTestCase.cs</DependentUpon>
@@ -257,6 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ProfilingSessions\Session20150205_163605.sdps" />
+    <None Include="Resources\stealth_red - Copy.gif" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="AutoItX3Lib">

@@ -27,7 +27,12 @@ namespace WebAutomation
 {
     static class BusinessLayer
     {
-
+        private static string _currentUniqueValue;
+        public static string propertycurrentUniqueValue
+        {
+            get { return _currentUniqueValue; }
+            set { _currentUniqueValue = value; }
+        }
         static string messageFoundControl = "Found  #controltype#  identified by #name# on WebPage: #webpage#";
         static string messageControlNotFound = "Did not find  #controltype#  identified by #name# on WebPage: #webpage#";
         static string messageverifyActionIgnore = "Action is verify but control not selected for verification";
@@ -342,33 +347,31 @@ namespace WebAutomation
         public static void LogTofile(string stepNo, string testCase, string controlType, string controlName, string friendlyName, string stxtMsg)
         {
             string logFile = System.Configuration.ConfigurationManager.AppSettings["logpath"];
-            string columnHeader = '\u0022' + "Stepno" + '\u0022' + "," + '\u0022' + "Testcase" + '\u0022' + "," + '\u0022' + "ControlType" + '\u0022' + ","
-                              + '\u0022' + "ControlName" + '\u0022' + "," + "FriendlyName" + '\u0022' + "," + '\u0022' + "Comment" + '\u0022';
-
-
+            char delim = '\u0022';
+            string[] ColumnNames = new string[] { "Stepno", "Testcase", "ControlType", "ControlName", "FriendlyName", "Comment" };
+            StringBuilder sb = new StringBuilder();
+            foreach (string incols in ColumnNames)
+            {
+                sb.Append(delim + incols + delim);
+                sb.Append(",");
+            }
+            string columnHeader = sb.ToString();
+            sb.Clear();
             if (!System.IO.File.Exists(logFile))
             {
                 System.IO.File.AppendAllText(logFile, columnHeader + Environment.NewLine);
             }
-
-            string value = '\u0022' + stepNo + '\u0022' + "," + '\u0022' + testCase + '\u0022' + "," + '\u0022' + controlType + '\u0022' + ","
-                              + '\u0022' + controlName + '\u0022' + "," + friendlyName + '\u0022' + "," + '\u0022' + stxtMsg + '\u0022';
-
+            string[] ColumnValues = new string[] { stepNo, testCase, controlType, controlName, friendlyName, stxtMsg };
+            foreach (string incols in ColumnValues)
+            {
+                sb.Append(delim + incols + delim);
+                sb.Append(",");
+            }
+            string value = sb.ToString();
+            sb.Clear();
             System.IO.File.AppendAllText(logFile, value);
-            //string logFile = System.Configuration.ConfigurationManager.AppSettings["logpath"];
             System.IO.File.AppendAllText(logFile, Environment.NewLine);
-            // System.IO.File.AppendAllText(logFile, System.DateTime.Now + ":" + stxtMsg + Environment.NewLine);
-
-            // try
-            // {
-            //     Console.WriteLine(stxtMsg);
-            // }
-            // catch (Exception ex)
-            // {
-            //     throw new Exception(ex.Message);
-
-
-            // }
+           
         }
 
         public static void AddScenarioMaster(string scenarioName, string notes)
@@ -1493,9 +1496,9 @@ namespace WebAutomation
                         int attempts = int.Parse(UIHelper.GetConfigurationValue("attempts"));
                         int pacing = int.Parse(UIHelper.GetConfigurationValue("pacing"));
                         string targetURL = UIHelper.GetConfigurationValue("targeturl");
-
+                        IList<IWebElement> alllinks = null;
                         DataTable dtwebpgid = BusinessLayer.GetWebPageIdOnly(scenarioID);
-
+                        bool linkfound = false;
                        string wpgid = dtwebpgid.Rows[0]["WebPageID"].ToString();
 
                         DataTable dtwebpageurl = BusinessLayer.GetWebPageURLs(Int32.Parse(wpgid));
@@ -1614,10 +1617,10 @@ namespace WebAutomation
                                     }
 
                                 }
-                                UIHelper.LogToFile("Launching chrome driver");
+                           //     UIHelper.LogToFile("Launching chrome driver");
                                 if ( targetURL.Contains((string)dtRun.Rows[0]["absolutepath"].ToString()))
                                 {
-                                    UIHelper.LogToFile("Launcing for no abs path " + targetURL);
+                               //     UIHelper.LogToFile("Launcing for no abs path " + targetURL);
                                     //do not concat abs path
                                 chromedriver = Core.IdentifyWebPageChrome(chromedriver, (string)dtRun.Rows[i]["Title"].ToString(), targetURL);         
                                 }
@@ -1826,7 +1829,7 @@ namespace WebAutomation
                                             else
                                             {
                                                 //todo need to handle text in logging
-                                                BusinessLayer.LogTofile(i.ToString(), testCase, controlType, elementName, "", messageControlNotFound.Replace("#controltype", "Image").Replace("#name", elementID.Length > 0 ? elementID : elementName).Replace("#webpage#", chromedriver.Title));
+                                                BusinessLayer.LogTofile(i.ToString(), testCase, controlType, elementName, "", messageControlNotFound.Replace("#controltype", "Span").Replace("#name", elementID.Length > 0 ? elementID : elementName).Replace("#webpage#", chromedriver.Title));
                                             }
 
                                             spanText = CheckPrefixSuffix(ignorePrefix, ignoreSuffix, spanText);
@@ -2055,7 +2058,7 @@ namespace WebAutomation
                                         if (action.ToLower() == "add" || (action.ToLower() == "verify"))
                                         {
                                             txt = Core.getElement(chromedriver, frame, elementID,elementName,controlValue, index);
-                                            
+                                           // IList<IWebElement> ielelist = txt.FindElements(By.Id("df"));
                                             if (txt != null)
                                             {
                                                 if (txt.Enabled == true)
@@ -2096,6 +2099,7 @@ namespace WebAutomation
                                                         {
                                                             txt.Click();
                                                             txt.SendKeys(currentUniquevalue);
+                                                            BusinessLayer.propertycurrentUniqueValue = currentUniquevalue;
                                                             SendKeys.SendWait("{TAB}");
                                                         }
                                                        // else
@@ -2144,25 +2148,59 @@ namespace WebAutomation
                                         IWebElement lnk = null;
                                         isJavaScriptButton = IsJavaScriptButton(dtRun, i);
                                         #region Link
-                                        if ((data.ToLower() == "c") && (action.ToLower() == "add" || (action.ToLower() == "verify")))
+                                        if ( (action.ToLower() == "add" || (action.ToLower() == "verify")))
                                         {
                                             currentUniqueName = data.Length > 0 ? data : elementName;  //data is for link
                                             if (currentTableRow >= 0)
                                             {
-                                                BusinessLayer.LogTofile("", "", "", "", "", "Searching link in the web table");
-                                                lnk = Core.getElementLink(chromedriver,frame,elementID,elementName,controlValue,index);
+                                                BusinessLayer.LogTofile("", "", "", "", "", "Searching links");
+                                                if (elementName.ToLower() != "linkscollection")
+                                                {
+                                                    lnk = Core.getElementLink(chromedriver, frame, elementID, elementName, controlValue, index);
+                                                }
+                                                else
+                                                {
+                                                    for (int z1 =0; z1 < attempts ; z1++)
+                                                    {
+                                                        alllinks = chromedriver.FindElementsByTagName("a");
+                                                        if (alllinks != null )
+                                                        {
+                                                            break;
+                                                            
+                                                        }
+                                                        System.Threading.Thread.Sleep(1000);
+                                                    }
+                                                }
                                                 currentTableRow = -1; //reset the rownumber
                                             }
                                             else
                                             {
                                                 BusinessLayer.LogTofile("", "", "", "", "", "Searching link  on the webpage");
-                                                lnk = Core.getElementLink(chromedriver, frame, elementID, elementName, controlValue, index);
+                                                if (elementName.ToLower() != "linkscollection")
+                                                {
+                                                    lnk = Core.getElementLink(chromedriver, frame, elementID, elementName, controlValue, index);
+                                                }
+                                                else
+                                                {
+                                                    for (int z1 = 0; z1 < attempts; z1++)
+                                                    {
+                                                        alllinks = chromedriver.FindElementsByTagName("a");
+                                                        if (alllinks != null)
+                                                        {
+                                                            break;
+
+                                                        }
+                                                        System.Threading.Thread.Sleep(1000);
+                                                    }
+                                                }
+                                            //    lnk = Core.getElementLink(chromedriver, frame, elementID, elementName, controlValue, index);
+
 
                                             }
 
-                                            if (lnk != null)
+                                            if (lnk != null || alllinks !=null)
                                             {
-                                                BusinessLayer.LogTofile("", "", "", "", "", messageFoundControl.Replace("#controltype", controlType).Replace("#name", lnk.Text).Replace("#webpage#", chromedriver.Title));
+                                                
                                                 if (data.ToLower() == "c" && isJavaScriptButton == false)
                                                 {
                                                     try
@@ -2184,19 +2222,51 @@ namespace WebAutomation
                                                    // lnk.ClickNoWait();
                                                    // BusinessLayer.LogTofile("", "", "", "", "", "Link successfully clicked, not waiting for page load");
                                                 }
+                                                if (action.ToLower() == "verify")
+                                                {
+                                                    LogTofile(i.ToString(), testCase, controlType, elementName, "", "Link Verification in Progress");
+                                                    if ((data.StartsWith("~")) && (data.EndsWith("~")))
+                                                    {
+
+                                                        foreach (IWebElement elen in alllinks)
+                                                        {
+                                                            if (elen.Text == BusinessLayer.propertycurrentUniqueValue)
+                                                            {
+                                                                logResult( chromedriver, BusinessLayer.propertycurrentUniqueValue, elen.Text, controlType, elementName, "Link", scenario, testCase, "", CompareType.Equals);
+                                                                linkfound = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        if (linkfound == false)
+                                                        {
+                                                            logResult(chromedriver, BusinessLayer.propertycurrentUniqueValue, "No Link", controlType, elementName, "Link", scenario, testCase, "", CompareType.Equals);
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+
+                                                        logResult(data, lnk.Text, controlType, elementName, "Link", scenario, testCase, "");
+
+                                                    }
+                                                }
+
+                                               
                                             }
                                             else
                                             {
-                                                BusinessLayer.LogTofile("", "", "", "", "", messageControlNotFound.Replace("#controltype", "Link").Replace("#name", elementID.Length > 0 ? elementID : elementName).Replace("#webpage#", chromedriver.Title));
+
+                                                BusinessLayer.LogTofile("", "", "", "", "", messageFoundControl.Replace("#controltype", controlType).Replace("#name", lnk.Text).Replace("#webpage#", chromedriver.Title));
+                                                
                                             }
 
                                             chromedriver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromMinutes(120.00));
                                         }
-                                        #endregion
+                                        
                                         else
                                         {
                                             BusinessLayer.LogTofile("", "", "", "", "", messageverifyActionIgnore);
                                         }
+                                        #endregion
                                         
                                         break;
                                     case "checkbox":
@@ -3628,7 +3698,7 @@ namespace WebAutomation
             }
         }
 
-        private static void logResult(string expected, string actual, string controlType, string controlName, string attribute,string scenario, string testCase, string friendlyName)
+        private static void logResult(string expected, string actual, string controlType, string controlName, string attribute,string scenario, string testCase, string friendlyName )
         {
             try
             {
@@ -3641,31 +3711,29 @@ namespace WebAutomation
                     result = "Fail";
                 }
 
-                string columnHeader = '\u0022' + "Scenario" + '\u0022' + "," + 
-                                       '\u0022' + "Testcase" + '\u0022' + "," + 
-                                       '\u0022' + "ControlType" + '\u0022' + "," +
-                                        '\u0022' + "ControlName" + '\u0022' + "," + 
-                                        '\u0022'+ "FriendlyName" + '\u0022' + "," + 
-                                         '\u0022' + "Attribute" + '\u0022' + "," +
-                                         '\u0022' + "Expected" + '\u0022' + "," + 
-                                         '\u0022' + "Actual" + '\u0022' + "," + 
-                                         '\u0022' + "Result" + '\u0022' + ",";
+              //  string snaphsotpathname = System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                string snaphsotpathname = "";
+                char deleim = '\u0022';
+                string[] arrcolumnheaders = new string[] {"Sceanrio", "Testcase","ControlType","ControlName",
+                                                           "FriendlyName","Attribute","Expected","Actual","Result", "Snasphot" };
+                StringBuilder sb = new StringBuilder();
+                foreach (string col in arrcolumnheaders)
+                {
+                    sb.Append(deleim + col + deleim + ",");
+                }
+                string columnHeader = sb.ToString();
                 string comparsion = "";
-
+                sb.Clear();
                 if (!System.IO.File.Exists(resultFile))
                 {
                     System.IO.File.AppendAllText(resultFile, columnHeader + Environment.NewLine);
                 }
-
-                comparsion = '\u0022' + scenario        + '\u0022' + "," + 
-                             '\u0022' + testCase        + '\u0022' + "," + 
-                             '\u0022' + controlType     + '\u0022' + "," + 
-                             '\u0022' + controlName     + '\u0022' + "," + 
-                             '\u0022' + friendlyName    + '\u0022' + "," +
-                             '\u0022' + attribute        + '\u0022' + "," + 
-                             '\u0022' + expected        + '\u0022' + "," + 
-                             '\u0022' + actual          + '\u0022' + "," + 
-                             '\u0022' + result          + '\u0022' + ",";
+                string[] arrcolvlas = new string[] { scenario, testCase, controlType, controlName, friendlyName, attribute, expected, actual, result, snaphsotpathname };
+                foreach (string col in arrcolvlas)
+                {
+                    sb.Append(deleim + col + deleim + ",");
+                }
+                comparsion = sb.ToString();
 
                 System.IO.File.AppendAllText(resultFile, comparsion + Environment.NewLine);
 
@@ -3699,40 +3767,28 @@ namespace WebAutomation
                     }
                 }
 
-                string columnHeader = '\u0022' + "Scenario" + '\u0022' + "," +
-                                       '\u0022' + "Testcase" + '\u0022' + "," +
-                                       '\u0022' + "ControlType" + '\u0022' + "," +
-                                        '\u0022' + "ControlName" + '\u0022' + "," +
-                                        '\u0022' + "FriendlyName" + '\u0022' + "," +
-                                         '\u0022' + "Attribute" + '\u0022' + "," +
-                                         '\u0022' + "Expected" + '\u0022' + "," +
-                                         '\u0022' + "Actual" + '\u0022' + "," +
-                                         '\u0022' + "Result" + '\u0022' + ",";
+                string snaphsotpathname = "";
+                char deleim = '\u0022';
+                string[] arrcolumnheaders = new string[] {"Sceanrio", "Testcase","ControlType","ControlName",
+                                                           "FriendlyName","Attribute","Expected","Actual","Result", "Snasphot" };
+                StringBuilder sb = new StringBuilder();
+                foreach (string col in arrcolumnheaders)
+                {
+                    sb.Append(deleim + col + deleim + ",");
+                }
+                string columnHeader = sb.ToString();
                 string comparsion = "";
-
-                //char deleim = '\u0022';
-                //string[] arrcolumnheaders = new string[] {"Sceanrio", "Testcase","ControlType","ControlName",
-                //                                           "FriendlyName","Attribute","Expected","Actual","Result" };
-                //StringBuilder sb = new StringBuilder();
-                //foreach (string col in arrcolumnheaders)
-                //{
-                //    sb.Append(deleim + col + deleim + ",");
-                //}
-
+                sb.Clear();
                 if (!System.IO.File.Exists(resultFile))
                 {
                     System.IO.File.AppendAllText(resultFile, columnHeader + Environment.NewLine);
                 }
-
-                comparsion = '\u0022' + scenario + '\u0022' + "," +
-                             '\u0022' + testCase + '\u0022' + "," +
-                             '\u0022' + controlType + '\u0022' + "," +
-                             '\u0022' + controlName + '\u0022' + "," +
-                             '\u0022' + friendlyName + '\u0022' + "," +
-                             '\u0022' + attribute + '\u0022' + "," +
-                             '\u0022' + expected + '\u0022' + "," +
-                             '\u0022' + actual + '\u0022' + "," +
-                             '\u0022' + result + '\u0022' + ",";
+                string[] arrcolvlas = new string[] { scenario, testCase, controlType, controlName, friendlyName, attribute, expected, actual, result, snaphsotpathname };
+                foreach (string col in arrcolvlas)
+                {
+                    sb.Append(deleim + col + deleim + ",");
+                }
+                comparsion = sb.ToString();
 
                 System.IO.File.AppendAllText(resultFile, comparsion + Environment.NewLine);
 
@@ -3744,7 +3800,62 @@ namespace WebAutomation
             }
 
         }
+        private static void logResult(ChromeDriver drv ,string expected, string actual, string controlType, string controlName, string attribute, string scenario, string testCase, string friendlyName, CompareType ct)
+        {
+            try
+            {
+                string resultFile = UIHelper.GetConfigurationValue("resultFile");
 
+                string result = "Pass";
+                if (ct.ToString().ToLower() == "equals")
+                {
+                    if (expected.ToLower() != actual.ToLower())
+                    {
+                        result = "Fail";
+                    }
+                }
+                else if (ct.ToString().ToLower() == "contains")
+                {
+                    if (!actual.Contains(expected))
+                    {
+                        result = "Fail";
+                    }
+                }
+
+                string snaphsotpathname = System.Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                string impath = Core.TakeScreenshot(drv, snaphsotpathname);
+                char deleim = '\u0022';
+                string[] arrcolumnheaders = new string[] {"Sceanrio", "Testcase","ControlType","ControlName",
+                                                           "FriendlyName","Attribute","Expected","Actual","Result", "Snasphot" };
+                StringBuilder sb = new StringBuilder();
+                foreach (string col in arrcolumnheaders)
+                {
+                    sb.Append(deleim + col + deleim + ",");
+                }
+                string columnHeader = sb.ToString();
+                string comparsion = "";
+                sb.Clear();
+                if (!System.IO.File.Exists(resultFile))
+                {
+                    System.IO.File.AppendAllText(resultFile, columnHeader + Environment.NewLine);
+                }
+                string[] arrcolvlas = new string[] { scenario, testCase, controlType, controlName, friendlyName, attribute, expected, actual, result, impath };
+                foreach (string col in arrcolvlas)
+                {
+                    sb.Append(deleim + col + deleim + ",");
+                }
+                comparsion = sb.ToString();
+
+                System.IO.File.AppendAllText(resultFile, comparsion + Environment.NewLine);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
         private static DataRow[] GetDynamicValue(string dynamicName, int scenarioID)
         {
             try
